@@ -1,2 +1,3 @@
 # Halleyx-2025-challenge
 A full-stack e-commerce web application with user authentication, product management, and secure checkout. Built using React, Node.js, Express, and MongoDB.
+https://github.com/priyadharshiniravindran/Halleyx-2025-challenge
