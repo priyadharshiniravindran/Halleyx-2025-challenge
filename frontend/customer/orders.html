@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Orders - Halleyx</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f3f3f3;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #0077b6;
+      margin-bottom: 30px;
+    }
+
+    .order-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .order-card {
+      background-color: #fff;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 280px;
+      transition: transform 0.3s ease;
+    }
+
+    .order-card:hover {
+      transform: scale(1.03);
+    }
+
+    .order-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .order-card h3 {
+      margin: 10px 0 5px;
+      font-size: 18px;
+      color: #023047;
+    }
+
+    .order-card p {
+      margin: 4px 0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .empty-message {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 60px;
+      color: #888;
+    }
+
+    @media (max-width: 600px) {
+      .order-card {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Your Orders</h1>
+
+  <div class="order-list" id="orderList">
+    <p class="empty-message">Loading your orders...</p>
+  </div>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem("halix-user"));
+    const orderList = document.getElementById("orderList");
+
+    if (!user || !user.id) {
+      orderList.innerHTML = "<p class='empty-message'>Please login to view your orders.</p>";
+    } else {
+      fetch(`http://localhost:5000/api/order/get-orders/${user.id}`)
+        .then(res => res.json())
+        .then(data => {
+          if (!data.orders || data.orders.length === 0) {
+            orderList.innerHTML = "<p class='empty-message'>You have no orders yet.</p>";
+          } else {
+            orderList.innerHTML = ""; // Clear loading message
+
+            data.orders.forEach(order => {
+              const div = document.createElement("div");
+              div.className = "order-card";
+              div.innerHTML = `
+                <img src="${order.image}" alt="${order.name}">
+                <h3>${order.name}</h3>
+                <p><strong>Size:</strong> ${order.size}</p>
+                <p><strong>Price:</strong> ₹${order.price}</p>
+                <p><strong>Payment:</strong> ${order.payment}</p>
+                <p><strong>Date:</strong> ${order.date}</p>
+              `;
+              orderList.appendChild(div);
+            });
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          orderList.innerHTML = "<p class='empty-message'>Something went wrong. Please try again later.</p>";
+        });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - HalleyX</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f7fa;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #002f4b;
+      color: white;
+      padding: 15px 20px;
+    }
+
+    .top-bar h1 {
+      font-size: 22px;
+      margin: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      background: #0077b6;
+    }
+
+    .nav-links a:hover {
+      background-color: #005f87;
+    }
+
+    .logout-link {
+      background: #e63946;
+    }
+
+    .logout-link:hover {
+      background: #c92b2b;
+    }
+
+    .dashboard-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      flex: 1;
+      min-width: 200px;
+      text-align: center;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      color: #0077b6;
+    }
+
+    .admin-section {
+      padding: 20px;
+    }
+
+    .admin-section h2 {
+      margin-bottom: 10px;
+      color: #023047;
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .admin-table th,
+    .admin-table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .admin-table th {
+      background-color: #0077b6;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="top-bar">
+    <h1>Admin Dashboard - HalleyX</h1>
+    <nav class="nav-links">
+      <a href="./upload-product.html">Add Product</a>
+      <a href="./product.html">Products</a>
+      <a href="./customer.html">Customers</a>
+      <a href="./order.html">Orders</a>
+      <a href="../login.html" class="logout-link">Logout</a>
+    </nav>
+  </header>
+
+  <!-- Dashboard Stats -->
+  <section class="dashboard-cards">
+    <div class="card" id="productCountCard">
+      <h3>Total Products</h3>
+      <p>Loading...</p>
+    </div>
+    <div class="card">
+      <h3>Total Customers</h3>
+      <p>310</p>
+    </div>
+    <div class="card">
+      <h3>Orders</h3>
+      <p>Pending: 12 | Processing: 7 | Shipped: 5</p>
+    </div>
+  </section>
+
+  <!-- Latest Customers -->
+  <section class="admin-section">
+    <h2>Latest Customers</h2>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Alice Smith</td>
+          <td>alice@mail.com</td>
+          <td>Active</td>
+        </tr>
+        <tr>
+          <td>John Doe</td>
+          <td>john@mail.com</td>
+          <td>Blocked</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <script>
+    // Load product count dynamically from localStorage
+    const products = JSON.parse(localStorage.getItem("products")) || [];
+    document.querySelector("#productCountCard p").textContent = products.length;
+  </script>
+</body>
+</html>

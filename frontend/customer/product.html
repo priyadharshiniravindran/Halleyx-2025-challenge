@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Products - Halix</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #0077b6;
+      padding: 15px;
+      text-align: center;
+      color: white;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 30px;
+      justify-content: center;
+    }
+
+    .product-card {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 260px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: scale(1.02);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .product-card h3 {
+      margin: 0 0 10px;
+      color: #333;
+    }
+
+    .product-card p {
+      margin: 5px 0;
+      color: #555;
+    }
+
+    .add-btn {
+      background-color: #0077b6;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .add-btn:hover {
+      background-color: #005f87;
+    }
+
+    .empty-msg {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 40px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Available Products</h1>
+  </header>
+
+  <div class="product-grid" id="productList"></div>
+
+  <script>
+    const productList = document.getElementById("productList");
+    const products = JSON.parse(localStorage.getItem("products")) || [];
+
+    if (products.length === 0) {
+      productList.innerHTML = '<p class="empty-msg">No products available.</p>';
+    } else {
+      products.forEach((product, index) => {
+        const card = document.createElement("div");
+        card.className = "product-card";
+
+        card.innerHTML = `
+          <img src="${product.image}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p><strong>₹${product.price}</strong></p>
+          <p>${product.category}</p>
+          <p>Sizes: ${product.size}</p>
+          <button class="add-btn" onclick="addToCart(${index})">Add to Cart</button>
+          <button class="add-btn" onclick="orderNow(${index})" style="margin-left: 10px;">Order Now</button>
+        `;
+
+        productList.appendChild(card);
+      });
+    }
+
+    function addToCart(index) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const product = products[index];
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${product.name} added to cart!`);
+    }
+
+    function orderNow(index) {
+      const product = products[index];
+      localStorage.setItem("order-now-item", JSON.stringify(product));
+      window.location.href = "order-success.html"; // Go to success page directly
+    }
+  </script>
+
+</body>
+</html>

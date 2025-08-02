@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart - Halix</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px;
+      background-color: #0077b6;
+      color: white;
+      margin: 0;
+    }
+
+    .cart-container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 20px;
+      border-bottom: 1px solid #ddd;
+      padding: 15px 0;
+      align-items: center;
+    }
+
+    .cart-item img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .item-details {
+      flex: 1;
+    }
+
+    .item-details h3 {
+      margin: 0;
+      color: #333;
+    }
+
+    .item-details p {
+      margin: 4px 0;
+      color: #666;
+    }
+
+    .remove-btn {
+      background-color: #e63946;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .remove-btn:hover {
+      background-color: #c92b2b;
+    }
+
+    .place-order {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .place-order button {
+      background-color: #0077b6;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .place-order button:hover {
+      background-color: #005f87;
+    }
+
+    .empty {
+      text-align: center;
+      color: #888;
+      margin-top: 50px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Your Cart</h1>
+
+  <div class="cart-container" id="cartContainer">
+    <!-- Items will load here -->
+  </div>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const container = document.getElementById("cartContainer");
+
+    function renderCart() {
+      if (cart.length === 0) {
+        container.innerHTML = '<p class="empty">Your cart is empty 😢</p>';
+        return;
+      }
+
+      container.innerHTML = "";
+
+      cart.forEach((item, index) => {
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "cart-item";
+
+        itemDiv.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" />
+        <div class="item-details">
+          <h3>${item.name}</h3>
+          <p>Size: ${item.size}</p>
+          <p>Price: ₹${item.price}</p>
+        </div>
+        <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+      `;
+
+        container.appendChild(itemDiv);
+      });
+
+      const orderBtn = document.createElement("div");
+      orderBtn.className = "place-order";
+      orderBtn.innerHTML = `
+      <button onclick="placeOrder()">Place Order</button>
+    `;
+      container.appendChild(orderBtn);
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function placeOrder() {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+
+      const user = JSON.parse(localStorage.getItem("halix-user"));
+      if (!user || !user.id) {
+        alert("Please login first!");
+        return;
+      }
+
+      // Backend expects { userId, orders }
+      fetch("http://localhost:5000/api/order/add-orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: user.id,
+          orders: cart
+        })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.message === "Orders placed successfully") {
+            localStorage.removeItem("cart");
+            alert("✅ Order placed successfully!");
+            window.location.href = "order-success.html";
+          } else {
+            alert("Something went wrong!");
+          }
+        })
+        .catch(err => {
+          console.error("Error placing order:", err);
+          alert("Server error! Please try again.");
+        });
+    }
+
+    renderCart();
+  </script>
+
+
+
+</body>
+
+</html>

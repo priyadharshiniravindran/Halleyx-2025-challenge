@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Now - Halix</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+
+    .order-container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .product-preview {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .product-preview img {
+      width: 150px;
+      height: 150px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .product-details {
+      flex: 1;
+    }
+
+    .payment-methods {
+      margin-top: 20px;
+    }
+
+    .payment-methods label {
+      margin-right: 20px;
+    }
+
+    .place-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-top: 25px;
+      font-size: 16px;
+      background-color: #0077b6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .place-btn:hover {
+      background-color: #005f87;
+    }
+  </style>
+</head>
+<body>
+  <div class="order-container">
+    <h2>Order Confirmation</h2>
+
+    <div class="product-preview" id="productDetails"></div>
+
+    <div class="payment-methods">
+      <h4>Select Payment Method:</h4>
+      <label><input type="radio" name="payment" value="Online" checked /> Online</label>
+      <label><input type="radio" name="payment" value="Offline" /> Offline</label>
+    </div>
+
+    <button class="place-btn" onclick="placeOrder()">Place Order</button>
+  </div>
+
+  <script>
+    const product = JSON.parse(localStorage.getItem("order-now-item"));
+    const user = JSON.parse(localStorage.getItem("halix-user"));
+
+    const productDetails = document.getElementById("productDetails");
+
+    if (product) {
+      productDetails.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" />
+        <div class="product-details">
+          <h3>${product.name}</h3>
+          <p>Price: ₹${product.price}</p>
+          <p>Size: ${product.size}</p>
+        </div>
+      `;
+    } else {
+      productDetails.innerHTML = "<p>Something went wrong. No product found.</p>";
+    }
+
+    function placeOrder() {
+      const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+
+      if (!user || !user.id) {
+        alert("Please login first!");
+        return;
+      }
+
+      const newOrder = {
+        ...product,
+        userId: user.id,
+        date: new Date().toLocaleDateString("en-IN"),
+        payment: paymentMethod
+      };
+
+      fetch("http://localhost:5000/api/order/add-orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: user.id, orders: [newOrder] })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.message === "Orders placed successfully") {
+            localStorage.removeItem("order-now-item");
+            alert("✅ Order placed successfully!");
+            window.location.href = "order-success.html";
+          } else {
+            alert("❌ Failed to place order.");
+          }
+        })
+        .catch(err => {
+          console.error("❌ Error placing order:", err);
+          alert("Server error.");
+        });
+    }
+  </script>
+</body>
+</html>

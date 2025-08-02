@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin - Customers</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    thead {
+      background-color: #007bff;
+      color: white;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .status-active {
+      color: green;
+      font-weight: bold;
+    }
+
+    .status-blocked {
+      color: red;
+      font-weight: bold;
+    }
+
+    .no-customers {
+      text-align: center;
+      color: #777;
+      margin-top: 50px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Customer List</h1>
+  <div id="customer-container"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("customer-container");
+
+      const customers = JSON.parse(localStorage.getItem("customers")) || [
+        {
+          name: "Alice Smith",
+          email: "alice@mail.com",
+          status: "Active"
+        },
+        {
+          name: "John Doe",
+          email: "john@mail.com",
+          status: "Blocked"
+        }
+      ];
+
+      function renderCustomers() {
+        if (customers.length === 0) {
+          container.innerHTML = '<div class="no-customers">No customers available.</div>';
+          return;
+        }
+
+        let table = `<table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>`;
+
+        customers.forEach(customer => {
+          table += `
+            <tr>
+              <td>${customer.name}</td>
+              <td>${customer.email}</td>
+              <td class="${customer.status.toLowerCase() === 'active' ? 'status-active' : 'status-blocked'}">
+                ${customer.status}
+              </td>
+            </tr>`;
+        });
+
+        table += `</tbody></table>`;
+        container.innerHTML = table;
+      }
+
+      renderCustomers();
+    });
+  </script>
+
+</body>
+</html>

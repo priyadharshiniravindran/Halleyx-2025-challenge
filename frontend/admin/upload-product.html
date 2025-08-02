@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Upload Product - Admin</title>
+  <link rel="stylesheet" href="../asset/style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .upload-container {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 90%;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2a4365;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: 600;
+      margin-top: 15px;
+      display: block;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .size-options {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .size-options label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background-color: #e2e8f0;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .btn {
+      margin-top: 25px;
+      padding: 12px;
+      width: 100%;
+      background-color: #2a4365;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #1a365d;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="upload-container">
+    <h1>Add Product</h1>
+    <form id="uploadForm">
+
+      <label for="category">Category</label>
+      <select id="category" required>
+        <option value="">-- Select Category --</option>
+        <option value="Women Ethnic">Women Ethnic</option>
+        <option value="Women Western">Women Western</option>
+        <option value="Men">Men</option>
+        <option value="Kids">Kids</option>
+        <option value="Home & Kitchen">Home & Kitchen</option>
+        <option value="Beauty & Health">Beauty & Health</option>
+        <option value="Jewellery">Jewellery</option>
+        <option value="Footwear">Footwear</option>
+      </select>
+
+      <label for="name">Product Name</label>
+      <input type="text" id="name" placeholder="Enter product name" required>
+
+      <label for="price">Price (₹)</label>
+      <input type="number" id="price" placeholder="Enter price" required>
+
+      <label>Available Sizes</label>
+      <div class="size-options">
+        <label><input type="checkbox" name="size" value="S"> S</label>
+        <label><input type="checkbox" name="size" value="M"> M</label>
+        <label><input type="checkbox" name="size" value="L"> L</label>
+        <label><input type="checkbox" name="size" value="XL"> XL</label>
+      </div>
+
+      <label for="description">Description</label>
+      <textarea id="description" rows="4" placeholder="Enter description" required></textarea>
+
+      <label for="image">Product Image</label>
+      <input type="file" id="image" accept="image/*" required>
+
+      <button type="submit" class="btn">Upload Product</button>
+    </form>
+  </div>
+
+  <script src="admin.js"></script>
+
+</body>
+</html>

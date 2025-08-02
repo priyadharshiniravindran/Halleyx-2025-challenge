@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Halleyx E-Commerce</title>
+  <link rel="stylesheet" href="asset/style.css" /> <!-- ✅ Correct CSS path -->
+  <style>
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #fceabb, #f8b500);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing-container {
+  text-align: center;
+}
+
+.logo-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.logo-circle:hover {
+  transform: scale(1.05);
+}
+
+.welcome-text {
+  margin-top: 20px;
+  font-size: 2.5rem;
+  color: #333;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 600px) {
+  .logo-circle {
+    width: 100px;
+    height: 100px;
+  }
+
+  .welcome-text {
+    font-size: 1.8rem;
+  }
+}
+</style>
+
+</head>
+<body>
+  <div class="landing-container">
+    <a href="customer/home.html">
+      <img src="asset/image/logo.png" alt="Halleyx Logo" class="logo-circle" /> <!-- ✅ Correct image path -->
+    </a>
+    <h1 class="welcome-text">Welcome to Halleyx</h1>
+  </div>
+
+  <script src="asset/script.js"></script> <!-- ✅ Correct JS path -->
+</body>
+</html>
+

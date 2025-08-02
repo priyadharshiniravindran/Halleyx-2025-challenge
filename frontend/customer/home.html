@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hallex - Home</title>
+  <link rel="stylesheet" href="../asset/style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+    }
+
+    .top-bar {
+      background-color: #893775;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .logo h1 {
+      margin: 0;
+      font-size: 28px;
+      color: white;
+    }
+
+    .search-right {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .search-bar {
+      width: 60%;
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .top-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .top-right a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .category-nav-horizontal {
+      background-color: #f4e7ff;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      font-weight: bold;
+    }
+
+    .category-nav-horizontal a {
+      text-decoration: none;
+      color: #5a2c6c;
+      padding: 8px 12px;
+      border-radius: 5px;
+    }
+
+    .category-nav-horizontal a:hover {
+      background-color: #c084fc;
+      color: white;
+    }
+
+    .banner {
+      width: 100%;
+      max-height: 400px;
+      overflow: hidden;
+    }
+
+    .banner img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .category-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .category-card {
+      background-color: #fdf4ff;
+      border: 1px solid #e9d5ff;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      width: 180px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      transition: 0.3s;
+      text-decoration: none;
+    }
+
+    .category-card:hover {
+      transform: translateY(-5px);
+      background-color: #f3e8ff;
+      box-shadow: 0 5px 12px rgba(137, 55, 117, 0.3);
+    }
+
+    .category-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .category-card h3 {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #5a2c6c;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <div class="logo">
+      <img src="../asset/image/logo.png" alt="Hallex Logo" />
+      <h1>Hallex</h1>
+    </div>
+    <div class="search-right">
+      <input type="text" class="search-bar" placeholder="Search for products..." />
+    </div>
+    <div class="top-right">
+      <a href="../register.html">Register</a>
+      <a href="../login.html">Login</a>
+      <a href="profile.html">👤</a>
+      <a href="cart.html">🛒</a>
+      <a href="../admin/dashboard.html">Admin</a>
+    </div>
+  </header>
+
+  <!-- Horizontal Category Navigation -->
+  <nav class="category-nav-horizontal">
+    <a href="category.html?type=ethnic">Women Ethnic</a>
+    <a href="category.html?type=western">Women Western</a>
+    <a href="category.html?type=men">Men</a>
+    <a href="category.html?type=kids">Kids</a>
+    <a href="category.html?type=home">Home & Kitchen</a>
+    <a href="category.html?type=beauty">Beauty & Health</a>
+    <a href="category.html?type=jewellery">Jewellery</a>
+    <a href="category.html?type=footwear">Footwear</a>
+  </nav>
+
+  <!-- Banner -->
+  <section class="banner">
+    <img src="../asset/image/banner3.gif" alt="Main Banner" />
+  </section>
+
+  <!-- Product Category Cards -->
+  <section class="category-grid">
+    <a href="product.html" class="category-card">
+      <img src="../asset/image/ethnic1.avif" alt="Women Ethnic">
+      <h3>Elegant Kurti</h3>
+    </a>
+    <a href="product.html" class="category-card">
+      <img src="../asset/image/western.avif" alt="Women Western">
+      <h3>Trendy Western</h3>
+    </a>
+    <a href="product.html" class="category-card">
+      <img src="../asset/image/men.avif" alt="Men">
+      <h3>Men's Fashion</h3>
+    </a>
+    <a href="product.html" class="category-card">
+      <img src="../asset/image/kid.avif" alt="Kids">
+      <h3>Kids Wear</h3>
+    </a>
+    <a href="product.html" class="category-card">
+      <img src="../asset/image/kitchen.avif" alt="Home & Kitchen">
+      <h3>Home & Kitchen</h3>
+    </a>
+    <a href="product.html" class="category-card">
+      <img src="../asset/image/health and beauty.avif" alt="Beauty & Health">
+      <h3>Beauty & Health</h3>
+    </a>
+    <a href="product.html" class="category-card">
+      <img src="../asset/image/jewllery.avif" alt="Jewellery">
+      <h3>Jewellery</h3>
+    </a>
+    <a href="product.html" class="category-card">
+      <img src="../asset/image/footwear.avif" alt="Footwear">
+      <h3>Footwear</h3>
+    </a>
+  </section>
+
+</body>
+</html>

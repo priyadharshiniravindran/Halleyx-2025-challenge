@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Successful - Halix</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #fff6f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .success-container {
+      text-align: center;
+      background: #fff;
+      padding: 40px 60px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      max-width: 450px;
+      width: 90%;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .tick {
+      font-size: 64px;
+      color: #4CAF50;
+      margin-bottom: 20px;
+      animation: pop 0.4s ease-in-out;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+      font-size: 32px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 17px;
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #d81b60;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #ad1457;
+    }
+
+    @media (max-width: 480px) {
+      .success-container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      p {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="success-container">
+    <div class="tick">✔️</div>
+    <h1>Order Placed!</h1>
+    <p>Your order has been successfully placed.<br/>Thank you for shopping with <strong>Halix</strong>.</p>
+    <a href="home.html" class="btn">Continue Shopping</a>
+  </div>
+</body>
+  <p style="color: #999; font-size: 14px; margin-top: 10px;">Redirecting to homepage in 5 seconds...</p>
+<script>
+  setTimeout(() => {
+    window.location.href = "home.html";
+  }, 5000);
+</script>
+</html>
